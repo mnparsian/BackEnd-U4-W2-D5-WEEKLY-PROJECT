@@ -22,7 +22,7 @@ public class TestDataGenerator {
     String title = faker.book().title();
     String author = faker.book().author();
     String genre = faker.book().genre();
-    int publishYear = random.nextInt(2025 - 1900) + 1900;
+    int publishYear = random.nextInt(1900,2025);
     int numberOfPages = random.nextInt(500) + 50;
 
     return new Books(isbnCode, title, publishYear, numberOfPages, author, genre);
@@ -32,7 +32,7 @@ public class TestDataGenerator {
     long isbnCode = faker.number().randomNumber(6, true);
     String title = faker.book().title();
     PeriodType type = PeriodType.values()[random.nextInt(PeriodType.values().length)];
-    int publishYear = random.nextInt(1900, 2025) + 1900;
+    int publishYear = random.nextInt(1900, 2025);
     int numberOfPages = random.nextInt(500) + 50;
     return new Magazine(isbnCode, title, publishYear, numberOfPages, type);
   }

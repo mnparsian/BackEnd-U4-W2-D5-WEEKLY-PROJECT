@@ -52,4 +52,25 @@ public class Archive {
   public void printAll(){
     articles.forEach(article -> System.out.println(article.toString()));
   }
+
+  public void modifyItem(long isbnCode, String newTitle, int newPublishYear, int newNumberOfPages, String newAuthor, String newGenre, PeriodType newType){
+    Library foundItem = searchByIsbn(isbnCode);
+    if(foundItem != null){
+      foundItem.setTitle(newTitle);
+      foundItem.setPublishYear(newPublishYear);
+      foundItem.setNumberOfPages(newNumberOfPages);
+      if(foundItem instanceof Books){
+        Books book = (Books) foundItem;
+        book.setAuthor(newAuthor);
+        book.setGenre(newGenre);
+      }
+      else if(foundItem instanceof Magazine){
+        Magazine magazine = (Magazine) foundItem;
+        magazine.setType(newType);
+      }
+    }
+    else {
+      System.out.println("Item not found.");
+    }
+  }
 }

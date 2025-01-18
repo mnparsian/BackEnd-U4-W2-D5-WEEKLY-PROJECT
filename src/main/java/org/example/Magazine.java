@@ -29,9 +29,8 @@ public class Magazine extends Library{
 
     @Override
     public String toString() {
-        return "Magazine{" +
+        return "Magazine: " +
                 super.toString() +
-                "type=" + type +
-                "} ";
+                "type=" + type;
     }
 }

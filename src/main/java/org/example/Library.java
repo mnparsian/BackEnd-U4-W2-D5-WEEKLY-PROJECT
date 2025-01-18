@@ -55,6 +55,10 @@ public class Library {
         return articleType;
     }
 
+    public void setArticleType(ArticleType articleType) {
+        this.articleType = articleType;
+    }
+
     @Override
     public String toString() {
         return " " +
