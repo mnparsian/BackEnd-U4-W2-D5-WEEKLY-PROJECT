@@ -22,6 +22,7 @@ public class Main {
 
       System.out.println(
           """
+                -----------------------------------------------------------------
                 Select Option:
                 1-Add to library
                 2-Show items
@@ -30,6 +31,7 @@ public class Main {
                 5-Delete
                 6-Statistic
                 0-Exit
+                -----------------------------------------------------------------
                 """);
       int option = scan.nextInt();
       try {
@@ -43,6 +45,7 @@ public class Main {
           int typeOption = scan.nextInt();
           System.out.println("Please inset ISBN of you item: ");
           long isbnCode = scan.nextLong();
+          scan.nextLine();
           System.out.println("insert thi title: ");
           String title = scan.nextLine();
           if(typeOption == 1){
@@ -54,6 +57,14 @@ public class Main {
             myArchive.add(newMagazin);
 
           }
+        }
+        else if(option == 2){
+          myArchive.printAll();
+          continue;
+        }
+        else if(option == 3){
+
+
         }
 
       } catch (Exception e) {

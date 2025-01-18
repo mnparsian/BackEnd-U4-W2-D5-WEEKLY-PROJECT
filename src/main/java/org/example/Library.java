@@ -58,7 +58,7 @@ public class Library {
     @Override
     public String toString() {
         return " " +
-                "codiceIsbn = " + isbnCode +
+                "ISBN = " + isbnCode +
                 ", title = '" + title + '\'' +
                 ", publishYear = " + publishYear +
                 ", numberOfPages = " + numberOfPages +

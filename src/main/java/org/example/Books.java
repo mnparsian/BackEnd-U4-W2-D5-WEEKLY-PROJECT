@@ -28,10 +28,9 @@ public class Books extends Library {
 
     @Override
     public String toString() {
-        return "Books{" +
+        return "Books: " +
                 super.toString() +
                 "author='" + author + '\'' +
-                ", genre='" + genre + '\'' +
-                "} ";
+                ", genre='" + genre + '\'' ;
     }
 }
