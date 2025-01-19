@@ -24,6 +24,16 @@ public class TestDataGenerator {
       list.add(TestDataGenerator.generateRandomMagazine());
     }
   }
+  public static void handleBookGenerator(Archive list,int numBooks){
+    for(int i = 0; i <numBooks ; i++) {
+      list.add(TestDataGenerator.generateRandomBook());
+    }
+  }
+  public static void handleMagazineGenerator(Archive list,int numMagazines){
+    for(int i = 0; i <numMagazines ; i++) {
+      list.add(TestDataGenerator.generateRandomMagazine());
+    }
+  }
 
   public static Books generateRandomBook() {
     long isbnCode = faker.number().randomNumber(6, true);

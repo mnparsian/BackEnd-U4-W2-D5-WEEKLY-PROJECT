@@ -9,7 +9,7 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-import static org.example.TestDataGenerator.HandleTestDataGenerator;
+import static org.example.TestDataGenerator.*;
 
 public class Main {
 
@@ -23,7 +23,9 @@ public class Main {
       try {
         System.out.println(
             """
-                -----------------------------------------------------------------
+                -------------------------------LIBRARY PROJECT---------------------------------
+                ************* 5 BOOKS AND 5 MAGAZINE WERE GENERATED AUTOMATICALLY ************
+                -------------------------------------------------------------------------------
                 Select Option:
                 1-Add to library
                 2-Show items
@@ -32,8 +34,9 @@ public class Main {
                 5-Delete
                 6-Statistic
                 7-Save to file
+                8-Data Generator
                 0-Exit
-                -----------------------------------------------------------------
+                -------------------------------------------------------------------------------
                 """);
         System.out.print("Enter your choice: ");
         int option = scan.nextInt();
@@ -58,12 +61,15 @@ public class Main {
         } else if(option == 7){
           handleSave();
         }
+        else if(option == 8){
+          dataGenerator();
+        }
         else {
-          logger.error("Invalid Number! Please select a number in range (1.7) or 0 to exit");
+          logger.error("Invalid Number! Please select a number in range (1.8) or 0 to exit");
         }
 
       } catch (InputMismatchException e) {
-        logger.error("Invalid input! Just select a number between 1, 7, or select 0 for exit!");
+        logger.error("Invalid input! Just select a number between 1, 8, or select 0 for exit!");
         scan.nextLine();
       } catch (Exception e) {
         throw new RuntimeException(e);
@@ -383,6 +389,57 @@ public class Main {
       } catch (InputMismatchException e) {
         logger.error("Invalid input! Just insert the valid Number");
         scan.nextLine();}
+    }
+  }
+  //////////////////////////// ---- DATA GENERATOR HANDLER ----//////////////////////////
+  public static void dataGenerator(){
+    while (true){
+      try{
+        System.out.println(
+                """
+                -------------------------------
+                1-Generate Books and Magazines
+                2-Gnerate Books
+                3-Generate Magazines
+                0-Back
+                """);
+        System.out.print("Enter your choice: ");
+        int selectOption = scan.nextInt();
+        scan.nextLine();
+        if (selectOption == 0) {
+          logger.info("Back to main menu");
+          break;
+        }
+        else if(selectOption == 1){
+          System.out.print("How many books do you want?  ");
+          int selectBooks = scan.nextInt();
+          scan.nextLine();
+          System.out.print("How many Magazine do you want?  ");
+          int selectMagazines = scan.nextInt();
+          scan.nextLine();
+          handleTestDataGeneratorByUser(myArchive,selectBooks,selectMagazines);
+          logger.info("Random Books and Magazine added successfully!");
+        }
+        else if(selectOption == 2){
+          System.out.print("How many books do you want?  ");
+          int selectBooks = scan.nextInt();
+          scan.nextLine();
+          handleBookGenerator(myArchive,selectBooks);
+          logger.info("Random Books added successfully!");
+        }
+        else if(selectOption == 3){
+          System.out.print("How many Magazines do you want?  ");
+          int selectMagazines = scan.nextInt();
+          scan.nextLine();
+          handleMagazineGenerator(myArchive,selectMagazines);
+          logger.info("Random Magazine added successfully!");
+        }
+        else logger.error("Please select number between 1,3 or 0 to back to main menu");
+      }
+      catch (InputMismatchException e) {
+        logger.error("Invalid input! Just insert the valid Number");
+        scan.nextLine();
+      }
     }
   }
 }
