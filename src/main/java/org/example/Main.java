@@ -4,13 +4,13 @@ import org.slf4j.ILoggerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 import static org.example.TestDataGenerator.HandleTestDataGenerator;
 
-/** Hello world! */
 public class Main {
 
   public static final Logger logger = LoggerFactory.getLogger(Main.class);
@@ -31,6 +31,7 @@ public class Main {
                 4-Modify
                 5-Delete
                 6-Statistic
+                7-Save to file
                 0-Exit
                 -----------------------------------------------------------------
                 """);
@@ -54,12 +55,15 @@ public class Main {
           handleDelete();
         } else if (option == 6) {
           handleStatistic();
-        } else {
-          logger.error("Invalid Number! Please select a number in range (1. 6) or 0 to exit");
+        } else if(option == 7){
+          handleSave();
+        }
+        else {
+          logger.error("Invalid Number! Please select a number in range (1.7) or 0 to exit");
         }
 
       } catch (InputMismatchException e) {
-        logger.error("Invalid input! Just select a number between 1, 6, or select 0 for exit!");
+        logger.error("Invalid input! Just select a number between 1, 7, or select 0 for exit!");
         scan.nextLine();
       } catch (Exception e) {
         throw new RuntimeException(e);
@@ -96,15 +100,32 @@ public class Main {
 
           System.out.print("Insert the title: ");
           String title = scan.nextLine();
+          System.out.print("Insert the publish year: ");
+          int year = scan.nextInt();
+          scan.nextLine();
+          System.out.print("Insert the total number of pages: ");
+          int pages = scan.nextInt();
+          scan.nextLine();
 
           if (typeOption == 1) {
-            Books newBook = new Books(isbnCode, title);
+            System.out.print("Insert the name of author: ");
+            String author = scan.nextLine();
+            System.out.print("Insert type of genre: ");
+            String genre = scan.nextLine();
+            Books newBook = new Books(isbnCode, title,year,pages,author,genre);
             myArchive.add(newBook);
             logger.info("Book added successfully!");
           } else if (typeOption == 2) {
-            Magazine newMagazine = new Magazine(isbnCode, title);
-            myArchive.add(newMagazine);
-            logger.info("Magazine added successfully!");
+            System.out.print("Insert new Period Type (WEEKLY, MONTHLY, SEMESTRALE):");
+            try{
+              String periodType = scan.nextLine();
+              PeriodType newType = PeriodType.valueOf(periodType.toUpperCase());
+              Magazine newMagazine = new Magazine(isbnCode, title,year,pages,newType);
+              myArchive.add(newMagazine);
+              logger.info("Magazine added successfully!");
+              }catch (RuntimeException e){
+              logger.error("Invalid Input! select between(WEEKLY, MONTHLY, SEMESTRALE)");
+            }
           }
         } else {
           logger.error("Invalid Number! Please enter 1, 2, or 0.");
@@ -317,6 +338,51 @@ public class Main {
         logger.error("Invalid input! Just insert the valid Number");
         scan.nextLine();}
 
+    }
+  }
+  //////////////////////////// ---- SAVE TO FILE HANDLER ----//////////////////////////
+  public static void handleSave(){
+    while (true){
+      try{
+        System.out.println(
+            """
+            1-Save all items
+            2-Save Books
+            3-Save Magazines
+            0-Back
+            """);
+        System.out.print("Enter your choice: ");
+        int selectOption = scan.nextInt();
+        scan.nextLine();
+        if (selectOption == 0) {
+          logger.info("Back to main menu");
+          break;
+        } else if (selectOption == 1) {
+          try {
+            myArchive.saveListToFile("AllItems");
+          } catch (IOException e) {
+            System.err.println("Error while saving the file: " + e.getMessage());
+          }
+        }
+        else if(selectOption == 2){
+          try {
+            myArchive.saveBooksToFile("filteredBooks");
+          } catch (IOException e) {
+            System.err.println("Error while saving books: " + e.getMessage());
+          }
+        }
+        else if(selectOption == 3){
+          try {
+            myArchive.saveMagazinesToFile("filteredMagazines");
+          } catch (IOException e) {
+            System.err.println("Error while saving magazines: " + e.getMessage());
+          }
+        }
+        else logger.error("Please select number between 1,4 or 0 to back to main menu");
+
+      } catch (InputMismatchException e) {
+        logger.error("Invalid input! Just insert the valid Number");
+        scan.nextLine();}
     }
   }
 }
