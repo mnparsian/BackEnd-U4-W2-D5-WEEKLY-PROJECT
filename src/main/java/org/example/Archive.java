@@ -80,7 +80,7 @@ public class Archive {
       int newPublishYear,
       int newNumberOfPages,
       String newAuthor,
-      String newGenre,
+      GenreType newGenre,
       PeriodType newType) {
     Library foundItem = searchByIsbn(isbnCode);
     if (foundItem != null) {
@@ -90,7 +90,11 @@ public class Archive {
       if (foundItem instanceof Books) {
         Books book = (Books) foundItem;
         book.setAuthor(newAuthor);
-        book.setGenre(newGenre);
+        try {
+          book.setGenre(newGenre);
+        } catch (IllegalArgumentException e) {
+          System.out.println("Invalid genre! No changes were made to the genre.");
+        }
       } else if (foundItem instanceof Magazine) {
         Magazine magazine = (Magazine) foundItem;
         magazine.setType(newType);

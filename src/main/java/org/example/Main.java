@@ -116,11 +116,16 @@ public class Main {
           if (typeOption == 1) {
             System.out.print("Insert the name of author: ");
             String author = scan.nextLine();
-            System.out.print("Insert type of genre: ");
-            String genre = scan.nextLine();
-            Books newBook = new Books(isbnCode, title,year,pages,author,genre);
-            myArchive.add(newBook);
-            logger.info("Book added successfully!");
+            System.out.print("Insert type of genre (FICTION, NON_FICTION, MYSTERY,SCIENCE_FICTION,FANTASY,HISTORY,BIOGRAPHY");
+            try {
+              String genreInput = scan.nextLine();
+              GenreType genre = GenreType.valueOf(genreInput.toUpperCase());
+              Books newBook = new Books(isbnCode, title, year, pages, author, genre);
+              myArchive.add(newBook);
+              logger.info("Book added successfully!");
+            } catch (IllegalArgumentException e) {
+              logger.error("Invalid genre! Please select a valid genre from the list.");
+            }
           } else if (typeOption == 2) {
             System.out.print("Insert new Period Type (WEEKLY, MONTHLY, SEMESTRALE):");
             try{
@@ -231,14 +236,19 @@ public class Main {
           System.out.print("Insert new author:");
           String newAuthor = scan.nextLine();
 
-          System.out.print("Insert new genre:");
-          String newGenre = scan.nextLine();
+          System.out.print("Insert type of genre (FICTION, NON_FICTION, MYSTERY,SCIENCE_FICTION,FANTASY,HISTORY,BIOGRAPHY");
+          try {
+            String genreInput = scan.nextLine();
+            GenreType newGenre = GenreType.valueOf(genreInput.toUpperCase());
+            myArchive.modifyItem(isbnCode, newTitle, newPublishYear, newNumberOfPages, newAuthor, newGenre, null);
+
+            logger.info("Book Modified successfully!");
+          } catch (IllegalArgumentException e) {
+            logger.error("Invalid genre! Please select a valid genre from the list.");
+          }
 
 
-          myArchive.modifyItem(
-              isbnCode, newTitle, newPublishYear, newNumberOfPages, newAuthor, newGenre, null);
 
-          logger.info("Book Modified successfully!");
 
         } else if (item.getArticleType() == ArticleType.MAGAZINE) {
           System.out.print("Insert new Period Type (WEEKLY, MONTHLY, SEMESTRALE):");

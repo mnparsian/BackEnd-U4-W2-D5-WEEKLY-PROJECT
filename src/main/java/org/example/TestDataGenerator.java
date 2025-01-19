@@ -39,7 +39,7 @@ public class TestDataGenerator {
     long isbnCode = faker.number().randomNumber(6, true);
     String title = faker.book().title();
     String author = faker.book().author();
-    String genre = faker.book().genre();
+    GenreType genre = GenreType.values()[random.nextInt(GenreType.values().length)];
     int publishYear = random.nextInt(1900,2025);
     int numberOfPages = random.nextInt(500) + 50;
 
