@@ -116,7 +116,7 @@ public class Main {
           if (typeOption == 1) {
             System.out.print("Insert the name of author: ");
             String author = scan.nextLine();
-            System.out.print("Insert type of genre (FICTION, NON_FICTION, MYSTERY,SCIENCE_FICTION,FANTASY,HISTORY,BIOGRAPHY");
+            System.out.print("Insert type of genre (FICTION, NON_FICTION, MYSTERY,SCIENCE_FICTION,FANTASY,HISTORY,BIOGRAPHY): ");
             try {
               String genreInput = scan.nextLine();
               GenreType genre = GenreType.valueOf(genreInput.toUpperCase());
